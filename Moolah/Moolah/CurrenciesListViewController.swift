@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CurrenciesListViewController.swift
 //  Moolah
 //
 //  Created by Arvin San Miguel on 6/11/17.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CurrenciesListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
 
+        // Do any additional setup after loading the view.
     }
 
-}
 
+}

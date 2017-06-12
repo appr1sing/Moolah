@@ -12,6 +12,12 @@
 		A7444E2C1EEE29F200C99BB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7444E2A1EEE29F200C99BB0 /* Main.storyboard */; };
 		A7444E2E1EEE29F200C99BB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7444E2D1EEE29F200C99BB0 /* Assets.xcassets */; };
 		A7444E311EEE29F200C99BB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7444E2F1EEE29F200C99BB0 /* LaunchScreen.storyboard */; };
+		A7444E3B1EEE2BE700C99BB0 /* CurrenciesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7444E3A1EEE2BE700C99BB0 /* CurrenciesListViewController.swift */; };
+		A7444E3D1EEE2C0E00C99BB0 /* CurrenciesListConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7444E3C1EEE2C0E00C99BB0 /* CurrenciesListConfigurator.swift */; };
+		A7444E3F1EEE2C1B00C99BB0 /* CurrenciesListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7444E3E1EEE2C1B00C99BB0 /* CurrenciesListInteractor.swift */; };
+		A7444E411EEE2C2600C99BB0 /* CurrenciesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7444E401EEE2C2600C99BB0 /* CurrenciesListPresenter.swift */; };
+		A7444E431EEE2C3400C99BB0 /* CurrenciesListModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7444E421EEE2C3400C99BB0 /* CurrenciesListModels.swift */; };
+		A7444E451EEE2C4400C99BB0 /* CurrenciesListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7444E441EEE2C4400C99BB0 /* CurrenciesListRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +28,12 @@
 		A7444E2D1EEE29F200C99BB0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7444E301EEE29F200C99BB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7444E321EEE29F200C99BB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A7444E3A1EEE2BE700C99BB0 /* CurrenciesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrenciesListViewController.swift; sourceTree = "<group>"; };
+		A7444E3C1EEE2C0E00C99BB0 /* CurrenciesListConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrenciesListConfigurator.swift; sourceTree = "<group>"; };
+		A7444E3E1EEE2C1B00C99BB0 /* CurrenciesListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrenciesListInteractor.swift; sourceTree = "<group>"; };
+		A7444E401EEE2C2600C99BB0 /* CurrenciesListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrenciesListPresenter.swift; sourceTree = "<group>"; };
+		A7444E421EEE2C3400C99BB0 /* CurrenciesListModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrenciesListModels.swift; sourceTree = "<group>"; };
+		A7444E441EEE2C4400C99BB0 /* CurrenciesListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrenciesListRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +66,7 @@
 		A7444E251EEE29F200C99BB0 /* Moolah */ = {
 			isa = PBXGroup;
 			children = (
+				A7444E391EEE2BC600C99BB0 /* CurrencyList */,
 				A7444E381EEE29FF00C99BB0 /* Supporting Files */,
 				A7444E281EEE29F200C99BB0 /* ViewController.swift */,
 			);
@@ -70,6 +83,19 @@
 				A7444E321EEE29F200C99BB0 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A7444E391EEE2BC600C99BB0 /* CurrencyList */ = {
+			isa = PBXGroup;
+			children = (
+				A7444E3A1EEE2BE700C99BB0 /* CurrenciesListViewController.swift */,
+				A7444E3C1EEE2C0E00C99BB0 /* CurrenciesListConfigurator.swift */,
+				A7444E3E1EEE2C1B00C99BB0 /* CurrenciesListInteractor.swift */,
+				A7444E401EEE2C2600C99BB0 /* CurrenciesListPresenter.swift */,
+				A7444E421EEE2C3400C99BB0 /* CurrenciesListModels.swift */,
+				A7444E441EEE2C4400C99BB0 /* CurrenciesListRouter.swift */,
+			);
+			name = CurrencyList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,8 +171,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7444E3B1EEE2BE700C99BB0 /* CurrenciesListViewController.swift in Sources */,
+				A7444E411EEE2C2600C99BB0 /* CurrenciesListPresenter.swift in Sources */,
+				A7444E431EEE2C3400C99BB0 /* CurrenciesListModels.swift in Sources */,
 				A7444E291EEE29F200C99BB0 /* ViewController.swift in Sources */,
+				A7444E3D1EEE2C0E00C99BB0 /* CurrenciesListConfigurator.swift in Sources */,
+				A7444E451EEE2C4400C99BB0 /* CurrenciesListRouter.swift in Sources */,
 				A7444E271EEE29F200C99BB0 /* AppDelegate.swift in Sources */,
+				A7444E3F1EEE2C1B00C99BB0 /* CurrenciesListInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +342,7 @@
 				A7444E371EEE29F200C99BB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
