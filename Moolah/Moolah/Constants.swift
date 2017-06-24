@@ -12,3 +12,16 @@ import UIKit
 struct ColorConstant {
     static let blue = UIColor(red: 0.0, green: 122/255.0, blue: 1.0, alpha: 1.0)
 }
+
+struct TextConstant {
+    static let futuraSmall = UIFont(name: "Futura-Medium", size: 13)
+    static let futuraMedium = UIFont(name: "Futura-Medium", size: 25)
+    static let futuraBig = UIFont(name: "Futura-Bold", size: 30)
+    static let futuraTall = UIFont(name: "Futura-Medium", size: 38)
+    static let gillSansBig = UIFont(name: "GillSans-Light", size: 40)
+    
+    static let hvBig = UIFont(name: "HelveticaNeue-Thin", size: 38)
+    static let hvMed = UIFont(name: "HelveticaNeue", size: 30)
+    static let hvUL = UIFont(name: "HelveticaNeue-Light", size: 13)
+    static let hvSmall = UIFont(name: "HelveticaNeue", size: 20)
+}

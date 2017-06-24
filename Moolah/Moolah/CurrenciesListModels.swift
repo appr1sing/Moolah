@@ -20,9 +20,10 @@ struct CurrenciesList {
         
         struct ViewModel {
             struct DisplayedItem {
-                var countryName: String?
-                var currencyName: String?
-                var currencyValue: String?
+                var countryName: String
+                var currencyName: String
+                var currencyValue: Double
+                var value : Double { return currencyValue.roundTo(places: 2) } 
             }
             
             var displayedItems: [DisplayedItem]
