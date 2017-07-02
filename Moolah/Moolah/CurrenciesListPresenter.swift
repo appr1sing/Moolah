@@ -11,18 +11,22 @@ import UIKit
 protocol CurrenciesListPresenterInput{
     func presentFetchedItems(_ response: CurrenciesList.FetchItems.Response)
     func presentDeleteItem(_ response: CurrenciesList.Delete.Response)
+    func presentBaseCurrency(_ currency: CurrenciesList.FetchItems.ViewModel.Base)
+    func presentConvertedValues(_ response: CurrenciesList.FetchItems.Response, with value: String)
+    
 }
 
 protocol CurrenciesListPresenterOutput: class{
     func displayFetchedItems(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayDeleteResultSuccessful(_ viewModel: CurrenciesList.Delete.ViewModel.Successful)
     func displayDeleteResultError(_ viewModel: CurrenciesList.Delete.ViewModel.Error)
+    func displayBaseCurrency(_ viewModel: CurrenciesList.FetchItems.ViewModel.Base)
+    func displayConvertedValues(_ viewModel: CurrenciesList.FetchItems.ViewModel)
 }
 
-class CurrenciesListPresenter: CurrenciesListPresenterInput{
+class CurrenciesListPresenter: CurrenciesListPresenterInput {
     
     weak var output : CurrenciesListPresenterOutput! 
-    
     
     func presentFetchedItems(_ response: CurrenciesList.FetchItems.Response) {
         let viewModel = CurrenciesList.FetchItems.ViewModel(displayedItems: response.currencies.map({ $0.toDisplayedItem() }))
@@ -33,36 +37,17 @@ class CurrenciesListPresenter: CurrenciesListPresenterInput{
         
     }
     
-    //    weak var output: CurrenciesListPresenterOutput!
+    func presentBaseCurrency(_ currency: CurrenciesList.FetchItems.ViewModel.Base) {
+        let viewModel = currency
+        output.displayBaseCurrency(viewModel)
+    }
     
-    // MARK: Presentation logic
+    func presentConvertedValues(_ response: CurrenciesList.FetchItems.Response, with value: String) {
+        guard let multiplier = Double(value) else { return }
+        let viewModel = CurrenciesList.FetchItems.ViewModel(displayedItems: response.currencies.map({ $0.toConvertedValues(multiplier) }))
+        output.displayConvertedValues(viewModel)
+    }
     
-//    func presentFetchedItems(_ response: CurrenciesList.FetchItems.Response){
-//        let viewModel = CurrenciesList.FetchItems.ViewModel(displayedItems: response.currencies.map{$0.toDisplayedItem()})
-//        output.displayFetchedItems(viewModel)
-//    }
-//    
-//    func presentDeleteItem(_ response: CurrenciesList.Delete.Response){
-//        if response.successfully {
-//            presentDeleteItemSuccessful(atIndex: response.index)
-//        }
-//        else{
-//            presentDeleteItemError()
-//        }
-//    }
-//    
-//    func presentDeleteItemSuccessful(atIndex: Int){
-//        let viewModel = CurrenciesList.Delete.ViewModel.Successful(indexPath: IndexPath(item: atIndex, section: 0))
-//        output.displayDeleteResultSuccessful(viewModel)
-//    }
-//    
-//    func presentDeleteItemError(){
-//        let alertController = UIAlertController(title: nil, message: "Error found, please try later", preferredStyle: UIAlertControllerStyle.alert)
-//        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-//        let viewModel = CurrenciesList.Delete.ViewModel.Error(alertController: alertController)
-//        output.displayDeleteResultError(viewModel)
-//    }
-
 }
 
 extension Currency {
@@ -71,6 +56,12 @@ extension Currency {
         return CurrenciesList.FetchItems.ViewModel.DisplayedItem(countryName: self.countryName,
                                                                  currencyName: self.currencyName,
                                                                  currencyValue: self.currencyValue)
+    }
+    
+    func toConvertedValues(_ value: Double) -> CurrenciesList.FetchItems.ViewModel.DisplayedItem {
+        
+        return CurrenciesList.FetchItems.ViewModel.DisplayedItem(countryName: self.countryName, currencyName: self.currencyName, currencyValue: self.currencyValue * value)
+        
     }
 }
 

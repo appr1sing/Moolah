@@ -1,20 +1,20 @@
 //
-//  CurrenciesListRouter.swift
+//  AddCurrencyRouter.swift
 //  Moolah
 //
-//  Created by Arvin San Miguel on 6/11/17.
+//  Created by Arvin San Miguel on 7/1/17.
 //  Copyright © 2017 Appr1sing Studios. All rights reserved.
 //
 
 import UIKit
 
-protocol CurrenciesListRouterInput {
+protocol AddCurrencyRouterInput {
     func navigateToSomewhere()
 }
 
-class CurrenciesListRouter : CurrenciesListRouterInput {
+class AddCurrencyRouter : AddCurrencyRouterInput {
     
-    weak var viewController: CurrenciesListViewController!
+    weak var viewController: AddCurrencyViewController!
     
     // MARK: Navigation
     
@@ -43,15 +43,14 @@ class CurrenciesListRouter : CurrenciesListRouterInput {
         
     }
     
-    func passDataToNextScene<T: AddCurrencyViewController>(_ vc: T) {
-        vc.displayedCurrencies = viewController.displayedCurrencies
+    func passDataToSomewhereScene(segue: UIStoryboardSegue){
+        // NOTE: Teach the router how to pass data to the next scene
+        // let someWhereViewController = segue.destinationViewController as! SomeWhereViewController
+        // someWhereViewController.output.name = viewController.output.name
     }
     
     func goToAddCurrencyViewController() {
-        let addCurrencyVC = AddCurrencyViewController()
-        self.passDataToNextScene(addCurrencyVC)
-        viewController.present(addCurrencyVC, animated: true, completion: nil)
+        
     }
     
 }
-

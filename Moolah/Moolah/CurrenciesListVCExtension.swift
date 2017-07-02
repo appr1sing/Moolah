@@ -11,10 +11,6 @@ import UIKit
 extension CurrenciesListViewController {
     
     func layoutUI() {
-        setupTableView()
-    }
-    
-    func setupTableView() {
         
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -29,6 +25,7 @@ extension CurrenciesListViewController {
         tableView.register(BaseCurrencyCell.self, forCellReuseIdentifier: "baseCell")
         tableView.register(CurrencyCell.self, forCellReuseIdentifier: "currencyCell")
         tableView.register(TitleCell.self, forCellReuseIdentifier: "titleCell")
+        tableView.register(FooterViewCell.self, forCellReuseIdentifier: "footerCell")
         
         activityIndicator.activityIndicatorViewStyle = .white
         activityIndicator.frame = CGRect(x: 0.0, y: 0.0, width: 30, height: 30)

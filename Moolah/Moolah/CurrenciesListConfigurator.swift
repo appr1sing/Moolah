@@ -11,9 +11,6 @@ import UIKit
 // MARK: Connect View, Interactor, and Presenter
 
 extension CurrenciesListViewController: CurrenciesListPresenterOutput{
-//    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
-//        router.passDataToNextScene(segue: segue)
-//    }
 }
 
 extension CurrenciesListInteractor: CurrenciesListViewControllerOutput{

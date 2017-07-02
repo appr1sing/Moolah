@@ -15,11 +15,11 @@ struct CurrencyAPIClient {
     
     private init() {}
     
-    func requestCurrentConversion(_ completion: @escaping (JSON) -> ()) {
+    func requestCurrentConversion(_ base: String,_ completion: @escaping (JSON) -> ()) {
         
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration)
-        let url = URL(string: "http://api.fixer.io/latest?base=USD")
+        let url = URL(string: "http://api.fixer.io/latest?base=\(base)")
         let task = session.dataTask(with: url!) { data, response, error in
             
             guard let data = data else { fatalError() }

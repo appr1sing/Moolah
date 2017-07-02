@@ -10,12 +10,12 @@ import UIKit
 
 class BaseCurrencyCell: UITableViewCell {
 
-    public var title = "USD" {
-        willSet {
-            currencyName.text = newValue
-            setNeedsDisplay()
-        }
-    }
+//    public var title = "USD" {
+//        willSet {
+//            currencyName.text = newValue
+//            setNeedsDisplay()
+//        }
+//    }
     
     public var countryName : UILabel = {
         let lbl = UILabel(frame: .zero)
@@ -40,7 +40,6 @@ class BaseCurrencyCell: UITableViewCell {
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.adjustsFontSizeToFitWidth = true
         tf.textAlignment = .right
-        tf.attributedPlaceholder = NSAttributedString(string: "1.00", attributes: [NSForegroundColorAttributeName: UIColor.white])
         tf.font = TextConstant.hvBig
         tf.textColor = UIColor.white
         return tf
@@ -60,28 +59,27 @@ class BaseCurrencyCell: UITableViewCell {
         
         backgroundColor = ColorConstant.blue
         
-        //Add Base Currency label
         addSubview(currencyName)
         currencyName.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 10).isActive = true
         currencyName.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
         currencyName.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4).isActive = true
         currencyName.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
-        currencyName.text = "USD"
         
         addSubview(countryName)
         countryName.bottomAnchor.constraint(equalTo: currencyName.topAnchor, constant: 5).isActive = true
         countryName.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
         countryName.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         countryName.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        countryName.text = "United States of America"
         
         addSubview(textField)
         textField.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
         textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 10).isActive = true
         textField.centerYAnchor.constraint(equalTo: currencyName.centerYAnchor).isActive = true
         textField.leftAnchor.constraint(equalTo: currencyName.rightAnchor).isActive = true
-        
+        textField.keyboardType = .numbersAndPunctuation
         backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        
+        
     }
 
 }

@@ -11,17 +11,17 @@ import Foundation
 
 class CurrencyStore: CurrencyStoreProtocol {
     
-    let apiClient = CurrencyAPIClient.shared
+    private let apiClient = CurrencyAPIClient.shared
     private var currencies : [Currency] = []
-    var selectedCurrencies : [Currency] = []
     
     // MARK - Business logic
     
-    func fetchAllCurrencies(completionHandler: @escaping (_ currenciesArray: [Currency], _ error: CurrencyStoreError?) -> Void) {
+    func fetchAllCurrencies(_ base: String, completionHandler: @escaping (_ currenciesArray: [Currency], _ error: CurrencyStoreError?) -> Void) {
         
-        apiClient.requestCurrentConversion { json in
+        apiClient.requestCurrentConversion(base) { json in
             
             guard let responseCurrencies = json["rates"] as? [String : Double] else { fatalError() }
+            self.currencies = []
             
             for (key, value) in responseCurrencies {
                 
@@ -34,13 +34,13 @@ class CurrencyStore: CurrencyStoreProtocol {
             OperationQueue.main.addOperation {
                 completionHandler(self.currencies.sorted(by: { $0.countryName < $1.countryName }), nil)
             }
+            
         }
+
     }
     
-    
     func fetchCurrency(currency: Currency, completionHandler: (Currency?, CurrencyStoreError?) -> Void) {
-        let selectedCurrency = currencies.filter ({ $0.countryName == currency.countryName })
-        completionHandler(selectedCurrency.first, nil)
+        
     }
    
     func deleteCurrency(currency: Currency, completionHandler: (CurrencyStoreError?) -> Void) {

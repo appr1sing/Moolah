@@ -15,7 +15,7 @@ struct ColorConstant {
 
 struct TextConstant {
     static let futuraSmall = UIFont(name: "Futura-Medium", size: 13)
-    static let futuraMedium = UIFont(name: "Futura-Medium", size: 25)
+    static let futuraMedium = UIFont(name: "Futura-Medium", size: 18)
     static let futuraBig = UIFont(name: "Futura-Bold", size: 30)
     static let futuraTall = UIFont(name: "Futura-Medium", size: 38)
     static let gillSansBig = UIFont(name: "GillSans-Light", size: 40)
@@ -24,4 +24,10 @@ struct TextConstant {
     static let hvMed = UIFont(name: "HelveticaNeue", size: 30)
     static let hvUL = UIFont(name: "HelveticaNeue-Light", size: 13)
     static let hvSmall = UIFont(name: "HelveticaNeue", size: 20)
+    static let hvUS = UIFont(name: "HelveticaNeue-Light", size: 10)
+    
+    
+    static let hvThinMedium = UIFont(name: "HelveticaNeue-Thin", size: 20)
+    
 }
+

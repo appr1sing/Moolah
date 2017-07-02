@@ -37,6 +37,7 @@ struct CurrencytoCountry {
                                 "RUB" : "Russia",
                                 "SEK" : "Sweden",
                                 "SGD" : "Singapore",
+                                "USD" : "United States",
                                 "THB" : "Thailand",
                                 "TRY" : "Turkey",
                                 "ZAR" : "South Africa",

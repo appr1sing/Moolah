@@ -32,6 +32,7 @@ class CurrencyCell: UITableViewCell {
         let lbl = UILabel(frame: .zero)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textColor = UIColor.white
+        lbl.adjustsFontSizeToFitWidth = true 
         lbl.textAlignment = .right
         lbl.font = TextConstant.hvBig
         return lbl

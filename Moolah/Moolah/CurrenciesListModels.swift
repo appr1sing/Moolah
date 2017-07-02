@@ -23,10 +23,17 @@ struct CurrenciesList {
                 var countryName: String
                 var currencyName: String
                 var currencyValue: Double
-                var value : Double { return currencyValue.roundTo(places: 2) } 
+                var value : Double { return currencyValue.roundTo(places: 3) }
             }
             
             var displayedItems: [DisplayedItem]
+            
+            struct Base {
+                var currencyName: String
+                var countryName: String {
+                    return CurrencytoCountry.countryCode[currencyName] ?? ""
+                }
+            }
             
         }
         

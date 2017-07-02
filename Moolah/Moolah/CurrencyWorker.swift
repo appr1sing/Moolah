@@ -9,11 +9,12 @@
 import Foundation
 
 protocol CurrencyStoreProtocol{
-    func fetchAllCurrencies(completionHandler: @escaping (_ currenciesArray: [Currency], _ error: CurrencyStoreError?) -> Void)
+    func fetchAllCurrencies(_ base: String, completionHandler: @escaping (_ currenciesArray: [Currency], _ error: CurrencyStoreError?) -> Void)
     func fetchCurrency(currency: Currency, completionHandler:  (_ currency: Currency?, _ error: CurrencyStoreError?) -> Void)
     func deleteCurrency(currency: Currency, completionHandler: (_ error: CurrencyStoreError?) -> Void)
     func createCurrency(currency: Currency,  completionHandler:  (_ error: CurrencyStoreError?) -> Void)
     func updateCurrency(currency: Currency,  completionHandler:  (_ error: CurrencyStoreError?) -> Void)
+    //func fetchBase(_ currency: Currency, completionHandler: @escaping (_ currency: Currency, _ error: CurrencyStoreError?) -> Void)
 }
 
 enum CurrencyStoreError: Equatable, Error{
@@ -42,18 +43,19 @@ class CurrencyWorker {
         self.store = store
     }
     
-    func fetchAllCurrencies(completionHandler: @escaping (_ currenciesArray:[Currency]) -> Void){
+    func fetchAllCurrencies(_ base : String, completionHandler: @escaping (_ currenciesArray:[Currency]) -> Void) {
 
-        store.fetchAllCurrencies(completionHandler: { CurrenciesArray, error in
+        store.fetchAllCurrencies(base) { results, error in
             if error != nil {
                 completionHandler([])
             }
             else{
-                completionHandler(CurrenciesArray)
+                completionHandler(results)
             }
-        })
-        
+        }
+    
     }
+    
     
     func fetchCurrency(currency: Currency, completionHandler: (_ Currency: Currency?, _ error: CurrencyStoreError?) -> Void){
         
