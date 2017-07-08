@@ -12,7 +12,9 @@ struct AddCurrency {
     
     struct FetchItems {
         
-        struct Request {}
+        struct Request {
+            var currencies: [CurrenciesList.FetchItems.ViewModel.DisplayedItem]
+        }
         
         struct Response {
             var currencies : [Currency]
@@ -32,21 +34,27 @@ struct AddCurrency {
     
     struct SelectedCurrency {
         
+//        struct Request {
+//            var indexPath : IndexPath
+//            var selected : Bool
+//        }
+
         struct Request {
-            var indexPath : IndexPath
+            var currency : AddCurrency.FetchItems.ViewModel.DisplayedItems
             var selected : Bool
         }
         
         struct Response {
-            var indexPath: [IndexPath]
+            var currencies: [Currency]
         }
         
         struct ViewModel {
-            struct SelectedIndexPath {
-                var indexPath : IndexPath
+            struct DisplayedItems {
+                var countryName: String
+                var currencyName: String
+                var value: Double
             }
-            
-            var indexpaths: [SelectedIndexPath]
+            var displayedItems: [CurrenciesList.FetchItems.ViewModel.DisplayedItem]
             
         }
         

@@ -12,7 +12,9 @@ struct CurrenciesList {
     
     struct FetchItems {
         
-        struct Request {}
+        struct Request {
+            var defaultBase: CurrenciesList.FetchItems.ViewModel.DisplayedItem
+        }
         
         struct Response {
             var currencies: [Currency]
@@ -39,7 +41,53 @@ struct CurrenciesList {
         
     }
     
+    struct Update {
+        
+        struct Request {
+            var currencies : [CurrenciesList.FetchItems.ViewModel.DisplayedItem]
+            var base : CurrenciesList.FetchItems.ViewModel.DisplayedItem
+        }
+        
+        struct Response {
+            var currencies: [Currency]
+        }
+        
+        struct ViewModel {
+            struct DisplayedItem {
+                var countryName: String
+                var currencyName: String
+                var currencyValue: Double
+                var value : Double { return currencyValue.roundTo(places: 3) }
+            }
+            var displayedItems: [DisplayedItem]
+        }
+        
+        
+    }
+    
     struct Delete {
+        
+        struct Request {
+            var deletedItem : CurrenciesList.FetchItems.ViewModel.DisplayedItem
+        }
+        
+        struct Response {
+            var result: [Currency]
+        }
+        
+        struct ViewModel {
+            struct DisplayedItem {
+                var countryName: String
+                var currencyName: String
+                var currencyValue: Double
+                var value : Double { return currencyValue.roundTo(places: 3) }
+            }
+            var displayedItems: [DisplayedItem]
+        }
+        
+    }
+    
+    struct DeleteIndexPath {
         
         struct Request {
             var index = 0
@@ -47,19 +95,17 @@ struct CurrenciesList {
         
         struct Response {
             var index = 0
-            var successfully: Bool
         }
         
         struct ViewModel {
-            struct Error {
-                var alertController: UIAlertController
-            }
-            struct Successful {
+            struct Success {
                 var indexPath: IndexPath
             }
+            //var indexPath : Int
         }
         
     }
+    
     
 }
 

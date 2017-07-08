@@ -10,14 +10,14 @@ import Foundation
 
 protocol AddCurrencyPresenterInput {
     func presentFetchItems(_ response: AddCurrency.FetchItems.Response)
-    func presentSelectedIndexPath(_ response: AddCurrency.SelectedCurrency.Response)
-    func presentUpdatedSelectedIndexPath(_ response: AddCurrency.SelectedCurrency.Response)
+    func presentSelectedCurrencies(_ response: AddCurrency.SelectedCurrency.Response)
+    func presentUpdatedSelectedCurrencies(_ response: AddCurrency.SelectedCurrency.Response)
 }
 
 protocol AddCurrencyPresenterOutput : class {
     func displayFetchedItems(_ viewModel: AddCurrency.FetchItems.ViewModel)
-    func displaySelectedIndexPath(_ viewModel: AddCurrency.SelectedCurrency.ViewModel)
-    func displayUpdatedSelectedIndexPath(_ viewModel: AddCurrency.SelectedCurrency.ViewModel)
+    func displaySelectedCurrencies(_ viewModel: AddCurrency.SelectedCurrency.ViewModel)
+    func displayUpdatedSelectedCurrencies(_ viewModel: AddCurrency.SelectedCurrency.ViewModel)
 }
 
 class AddCurrencyPresenter: AddCurrencyPresenterInput {
@@ -29,22 +29,14 @@ class AddCurrencyPresenter: AddCurrencyPresenterInput {
         output.displayFetchedItems(viewModel)
     }
     
-    func presentSelectedIndexPath(_ response: AddCurrency.SelectedCurrency.Response) {
-        let viewModel = AddCurrency.SelectedCurrency.ViewModel(indexpaths: response.indexPath.map{ $0.displayIndex() })
-        output.displaySelectedIndexPath(viewModel)
+    func presentSelectedCurrencies(_ response: AddCurrency.SelectedCurrency.Response) {
+        let viewModel = AddCurrency.SelectedCurrency.ViewModel(displayedItems: response.currencies.map{ $0.toDisplayedItem() })
+        output.displaySelectedCurrencies(viewModel)
     }
     
-    func presentUpdatedSelectedIndexPath(_ response: AddCurrency.SelectedCurrency.Response) {
-        let viewModel = AddCurrency.SelectedCurrency.ViewModel(indexpaths: response.indexPath.map{ $0.displayIndex() })
-        output.displayUpdatedSelectedIndexPath(viewModel)
-    }
-    
-}
-
-extension IndexPath  {
-    
-    func displayIndex() -> AddCurrency.SelectedCurrency.ViewModel.SelectedIndexPath {
-        return AddCurrency.SelectedCurrency.ViewModel.SelectedIndexPath(indexPath: self)
+    func presentUpdatedSelectedCurrencies(_ response: AddCurrency.SelectedCurrency.Response) {
+        let viewModel = AddCurrency.SelectedCurrency.ViewModel(displayedItems: response.currencies.map{ $0.toDisplayedItem() })
+        output.displayUpdatedSelectedCurrencies(viewModel)
     }
     
 }

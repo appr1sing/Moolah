@@ -16,8 +16,8 @@ protocol AddCurrencyInteractorInput {
 
 protocol AddCurrencyInteractorOutput {
     func presentFetchItems(_ response: AddCurrency.FetchItems.Response)
-    func presentSelectedIndexPath(_ response: AddCurrency.SelectedCurrency.Response)
-    func presentUpdatedSelectedIndexPath(_ response: AddCurrency.SelectedCurrency.Response)
+    func presentSelectedCurrencies(_ response: AddCurrency.SelectedCurrency.Response)
+    func presentUpdatedSelectedCurrencies(_ response: AddCurrency.SelectedCurrency.Response)
 }
 
 
@@ -25,36 +25,39 @@ class AddCurrencyInteractor: AddCurrencyInteractorInput {
     
     var output: AddCurrencyInteractorOutput!
     var selectedIndexPath : [IndexPath] = []
-    var currencies : [Currency] = []
+    
+    var selectedCurrencies: [Currency] = []
+    var currencies : [Currency] = [] // List Country Currency Code
     let worker = AddCurrencyWorker()
     
     
     func fetchItems(_ request: AddCurrency.FetchItems.Request) {
         let results = worker.createResponse(CurrencytoCountry.countryCode)
         self.currencies = results
-        let response = AddCurrency.FetchItems.Response(currencies: results)
-        output.presentFetchItems(response)
+        
+        if let base = request.currencies.last {
+            let response = AddCurrency.FetchItems.Response(currencies: results.filter({ $0.currencyName != base.currencyName }))
+            output.presentFetchItems(response)
+        }
+        
     }
     
     func fetchSelectedCurrencies(_ request: AddCurrency.SelectedCurrency.Request) {
-        
+        let selected = Currency(request.currency.countryName, currencyName: request.currency.currencyName, currencyValue: request.currency.value)
         if request.selected {
-            self.selectedIndexPath.append(request.indexPath)
+            self.selectedCurrencies.append(selected)
         } else {
-            selectedIndexPath = selectedIndexPath.filter({ $0 != request.indexPath })
+            selectedCurrencies = selectedCurrencies.filter({ $0 != selected })
         }
-        
-        let response = AddCurrency.SelectedCurrency.Response(indexPath: selectedIndexPath)
-        output.presentSelectedIndexPath(response)
-        print(selectedIndexPath)
+        let response = AddCurrency.SelectedCurrency.Response(currencies: selectedCurrencies)
+        output.presentSelectedCurrencies(response)
     }
     
     func updateSelectedCurrencies(_ request: AddCurrency.Update.Request) {
-        let selectedCurrencies = worker.convertViewModelToCurrencyType(request.currencies)
-        let indexPaths = worker.retrieveIndexPath(from: currencies, with: selectedCurrencies)
-        let response = AddCurrency.SelectedCurrency.Response(indexPath: indexPaths)
-        selectedIndexPath = indexPaths
-        output.presentUpdatedSelectedIndexPath(response)
+        let results = worker.convertViewModelToCurrencyType(request.currencies)
+        let response = AddCurrency.SelectedCurrency.Response(currencies: results)
+        selectedCurrencies = results
+        output.presentUpdatedSelectedCurrencies(response)
     }
     
 }

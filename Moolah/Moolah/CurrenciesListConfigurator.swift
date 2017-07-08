@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: Connect View, Interactor, and Presenter
 
-extension CurrenciesListViewController: CurrenciesListPresenterOutput{
+extension CurrenciesListViewController: CurrenciesListPresenterOutput {
 }
 
 extension CurrenciesListInteractor: CurrenciesListViewControllerOutput{

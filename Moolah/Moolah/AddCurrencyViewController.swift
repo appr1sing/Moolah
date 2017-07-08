@@ -10,8 +10,8 @@ import UIKit
 
 protocol AddCurrencyViewControllerInput {
     func displayFetchedItems(_ viewModel: AddCurrency.FetchItems.ViewModel)
-    func displaySelectedIndexPath(_ viewModel: AddCurrency.SelectedCurrency.ViewModel)
-    func displayUpdatedSelectedIndexPath(_ viewModel: AddCurrency.SelectedCurrency.ViewModel)
+    func displaySelectedCurrencies(_ viewModel: AddCurrency.SelectedCurrency.ViewModel)
+    func displayUpdatedSelectedCurrencies(_ viewModel: AddCurrency.SelectedCurrency.ViewModel)
 }
 
 protocol AddCurrencyViewControllerOutput {
@@ -20,13 +20,19 @@ protocol AddCurrencyViewControllerOutput {
     func updateSelectedCurrencies(_ request: AddCurrency.Update.Request)
 }
 
+protocol AddCurrencyViewControllerDelegate : class  {
+    func passData(_ from: AddCurrencyViewController, currencies: [CurrenciesList.FetchItems.ViewModel.DisplayedItem])
+}
+
 class AddCurrencyViewController: UIViewController, AddCurrencyViewControllerInput {
     
     var output : AddCurrencyViewControllerOutput!
     var router : AddCurrencyRouter!
     var currencies : [AddCurrency.FetchItems.ViewModel.DisplayedItems] = []
-    var selectedCurrencies : [AddCurrency.SelectedCurrency.ViewModel.SelectedIndexPath] = []
+    var selectedCurrencies : [CurrenciesList.FetchItems.ViewModel.DisplayedItem] = []
     var displayedCurrencies : [CurrenciesList.FetchItems.ViewModel.DisplayedItem] = []
+    
+    weak var delegate : AddCurrencyViewControllerDelegate?
     
     let tableView = UITableView(frame: .zero)
     let proceedButton = ProceedButton(frame: .zero)
@@ -35,17 +41,24 @@ class AddCurrencyViewController: UIViewController, AddCurrencyViewControllerInpu
         super.viewDidLoad()
         AddCurrencyConfigurator.sharedInstance.configure(viewController: self)
         layoutUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         fetchItems()
         updateItems()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateItems()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delegate?.passData(self, currencies: selectedCurrencies)
+    }
+    
     //MARK - Output Protocol
+    
     func fetchItems() {
-        let request = AddCurrency.FetchItems.Request()
+        let request = AddCurrency.FetchItems.Request(currencies: displayedCurrencies)
         output.fetchItems(request)
     }
     
@@ -54,20 +67,19 @@ class AddCurrencyViewController: UIViewController, AddCurrencyViewControllerInpu
         output.updateSelectedCurrencies(request)
     }
     
-    
     //MARK - Input Protocol
+    
     func displayFetchedItems(_ viewModel: AddCurrency.FetchItems.ViewModel) {
         currencies = viewModel.displayedItems
         self.tableView.reloadData()
     }
     
-    func displaySelectedIndexPath(_ viewModel: AddCurrency.SelectedCurrency.ViewModel) {
-        selectedCurrencies = viewModel.indexpaths
+    func displaySelectedCurrencies(_ viewModel: AddCurrency.SelectedCurrency.ViewModel) {
+        selectedCurrencies = viewModel.displayedItems
     }
     
-    func displayUpdatedSelectedIndexPath(_ viewModel: AddCurrency.SelectedCurrency.ViewModel) {
-        selectedCurrencies = viewModel.indexpaths
-        print(selectedCurrencies.count, "count of selected currencies")
+    func displayUpdatedSelectedCurrencies(_ viewModel: AddCurrency.SelectedCurrency.ViewModel) {
+        selectedCurrencies = viewModel.displayedItems
     }
     
 }
@@ -103,10 +115,10 @@ extension AddCurrencyViewController : UITableViewDataSource, UITableViewDelegate
             bgView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
             cell.countryName.text = countryName
             
-            if !displayedCurrencies.filter({ $0.countryName == countryName }).isEmpty {
-                cell.tintColor = UIColor.white
-                cell.accessoryType = .checkmark
-            }
+//            if !displayedCurrencies.filter({ $0.countryName == countryName }).isEmpty {
+//                cell.tintColor = UIColor.white
+//                cell.accessoryType = .checkmark
+//            }
             
             cell.selectedBackgroundView = bgView
             cell.selectionStyle = .default
@@ -131,10 +143,10 @@ extension AddCurrencyViewController : UITableViewDataSource, UITableViewDelegate
             cell.tintColor = UIColor.white
             if cell.accessoryType == .checkmark {
                 cell.accessoryType = .none
-                let request = AddCurrency.SelectedCurrency.Request(indexPath: indexPath, selected: false)
+                let request = AddCurrency.SelectedCurrency.Request(currency: currencies[indexPath.row] , selected: false)
                 output.fetchSelectedCurrencies(request)
             } else {
-                let request = AddCurrency.SelectedCurrency.Request(indexPath: indexPath, selected: true)
+                let request = AddCurrency.SelectedCurrency.Request(currency: currencies[indexPath.row] , selected: true)
                 cell.accessoryType = .checkmark
                 output.fetchSelectedCurrencies(request)
             }
@@ -144,8 +156,8 @@ extension AddCurrencyViewController : UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        let selected = AddCurrency.SelectedCurrency.ViewModel.SelectedIndexPath(indexPath: indexPath)
-        if selectedCurrencies.contains(where: { $0.indexPath == selected.indexPath }) {
+        let selected = currencies[indexPath.row]
+        if selectedCurrencies.contains(where: { $0.countryName == selected.countryName }) {
             cell.tintColor = UIColor.white
             cell.accessoryType = .checkmark
         }
@@ -157,6 +169,7 @@ extension AddCurrencyViewController {
     
     func proceedBtnPressed(_ sender: ProceedButton) {
         sender.buttonPressed()
+        router.goToRootVC()
     }
     
 }

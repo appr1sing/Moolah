@@ -35,7 +35,7 @@ class AddCurrencyWorker {
                 indexPaths.append(IndexPath(row: index, section: 1))
             }
         }
-        return indexPaths
+        return Array(indexPaths.dropLast())
         
     }
     
