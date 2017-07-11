@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension AddCurrencyViewController {
     
@@ -18,7 +19,7 @@ extension AddCurrencyViewController {
         tableView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         tableView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        tableView.backgroundColor = ColorConstant.blue
+        tableView.backgroundColor = ColorConstant.midnight
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self

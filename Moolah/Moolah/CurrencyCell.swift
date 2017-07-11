@@ -13,7 +13,7 @@ class CurrencyCell: UITableViewCell {
     public var countryName : UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.textColor = UIColor.white
+        lbl.textColor = .white
         lbl.textAlignment = .left
         lbl.font = TextConstant.hvUL
         return lbl
@@ -22,7 +22,7 @@ class CurrencyCell: UITableViewCell {
     public var currencyName : UILabel = {
        let lbl = UILabel(frame: .zero)
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.textColor = UIColor.white
+        lbl.textColor =   ColorConstant.cyanBlue
         lbl.textAlignment = .left
         lbl.font = TextConstant.hvBig
         return lbl
@@ -31,7 +31,7 @@ class CurrencyCell: UITableViewCell {
     public var currencyValue : UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.textColor = UIColor.white
+        lbl.textColor = .white
         lbl.adjustsFontSizeToFitWidth = true 
         lbl.textAlignment = .right
         lbl.font = TextConstant.hvBig
@@ -50,7 +50,7 @@ class CurrencyCell: UITableViewCell {
     
     private func commonInit() {
         
-        backgroundColor = ColorConstant.blue
+        backgroundColor = .clear //ColorConstant.blue
         
         addSubview(currencyName)
         currencyName.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 10).isActive = true

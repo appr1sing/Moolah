@@ -10,22 +10,22 @@ import UIKit
 
 protocol CurrenciesListPresenterInput{
     func presentFetchedItems(_ response: CurrenciesList.FetchItems.Response)
-    func presentDeleteItem(_ response: CurrenciesList.Delete.Response)
+    //func presentDeleteItem(_ response: CurrenciesList.Delete.Response)
     func presentBaseCurrency(_ response: CurrenciesList.FetchItems.Response)
     func presentConvertedValues(_ response: CurrenciesList.FetchItems.Response, with value: String)
     func presentDelegatedCurrencies(_ response: CurrenciesList.Update.Response)
     func presentDeleteIndexPath(_ response: CurrenciesList.DeleteIndexPath.Response)
+    func presentRetrievedData(_ response: CurrenciesList.Retrieve.Response)
 }
 
 protocol CurrenciesListPresenterOutput: class{
     func displayFetchedItems(_ viewModel: CurrenciesList.FetchItems.ViewModel)
-//    func displayDeleteResultSuccessful(_ viewModel: CurrenciesList.Delete.ViewModel.Successful)
-//    func displayDeleteResultError(_ viewModel: CurrenciesList.Delete.ViewModel.Error)
-    func displayDeleteResultSuccessful(_ viewModel: CurrenciesList.FetchItems.ViewModel)
+    //func displayDeleteResultSuccessful(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayBaseCurrency(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayConvertedValues(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayDelegatedCurrencies(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayDeletedIndexPath(_ viewModel: CurrenciesList.DeleteIndexPath.ViewModel.Success)
+    func displayRetrievedData(_ viewModel: CurrenciesList.FetchItems.ViewModel)
 }
 
 class CurrenciesListPresenter: CurrenciesListPresenterInput {
@@ -42,10 +42,10 @@ class CurrenciesListPresenter: CurrenciesListPresenterInput {
         output.displayDelegatedCurrencies(viewModel)
     }
     
-    func presentDeleteItem(_ response: CurrenciesList.Delete.Response) {
-        let viewModel = CurrenciesList.FetchItems.ViewModel(displayedItems: response.result.map({ $0.toDisplayedItem() }))
-        output.displayDeleteResultSuccessful(viewModel)
-    }
+//    func presentDeleteItem(_ response: CurrenciesList.Delete.Response) {
+//        let viewModel = CurrenciesList.FetchItems.ViewModel(displayedItems: response.result.map({ $0.toDisplayedItem() }))
+//        output.displayDeleteResultSuccessful(viewModel)
+//    }
     
     func presentBaseCurrency(_ response: CurrenciesList.FetchItems.Response) {
         let viewModel = CurrenciesList.FetchItems.ViewModel(displayedItems: response.currencies.map({ $0.toDisplayedItem() }))
@@ -62,6 +62,11 @@ class CurrenciesListPresenter: CurrenciesListPresenterInput {
         let indexPath = IndexPath(row: response.index, section: 2)
         let viewModel = CurrenciesList.DeleteIndexPath.ViewModel.Success(indexPath: indexPath)
         output.displayDeletedIndexPath(viewModel)
+    }
+    
+    func presentRetrievedData(_ response: CurrenciesList.Retrieve.Response) {
+        let viewModel = CurrenciesList.FetchItems.ViewModel(displayedItems: response.currencies.map({ $0.toDisplayedItem() }))
+        output.displayRetrievedData(viewModel)
     }
     
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = CurrenciesListViewController()
         
-        window?.isOpaque = false
+        //window?.isOpaque = false
         
         return true
     }
@@ -41,6 +42,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        if !NetworkManager.shared.observingNetwork() {
+            NetworkManager.reachabilityMgr?.startListening()
+        }
+        
+        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

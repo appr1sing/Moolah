@@ -10,18 +10,19 @@ import UIKit
 
 protocol CurrenciesListViewControllerInput {
     func displayFetchedItems(_ viewModel: CurrenciesList.FetchItems.ViewModel)
-    func displayDeleteResultSuccessful(_ viewModel: CurrenciesList.FetchItems.ViewModel)
+    //func displayDeleteResultSuccessful(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayConvertedValues(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayDelegatedCurrencies(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayDeletedIndexPath(_ viewModel: CurrenciesList.DeleteIndexPath.ViewModel.Success)
+    func displayRetrievedData(_ viewModel: CurrenciesList.FetchItems.ViewModel)
 }
 
 protocol CurrenciesListViewControllerOutput {
     func fetchItems(_ request: CurrenciesList.FetchItems.Request)
-    func requestDeleteItem(_ request: CurrenciesList.Delete.Request)
     func convert(_ request: CurrenciesList.FetchItems.Request, with input: String)
     func fetchDelegatedCurrencies(_ request: CurrenciesList.Update.Request)
     func requestDeleteIndexPath(_ request: CurrenciesList.DeleteIndexPath.Request)
+    func retrieveSavedData(_ request: CurrenciesList.Retrieve.Request)
 }
 
 class CurrenciesListViewController: UIViewController, CurrenciesListViewControllerInput {
@@ -29,7 +30,9 @@ class CurrenciesListViewController: UIViewController, CurrenciesListViewControll
     var output : CurrenciesListViewControllerOutput!
     var router : CurrenciesListRouter!
     var displayedCurrencies : [CurrenciesList.FetchItems.ViewModel.DisplayedItem] = []
-    var defaultBase = CurrenciesList.FetchItems.ViewModel.DisplayedItem(countryName: "United States", currencyName: "USD", currencyValue: 1.00) {
+    var defaultBase = CurrenciesList.FetchItems.ViewModel.DisplayedItem(countryName: "United States",
+                                                                        currencyName: "USD",
+                                                                        currencyValue: 1.00) {
         didSet {
             let request = CurrenciesList.FetchItems.Request(defaultBase: defaultBase)
             output.convert(request, with: String(defaultBase.currencyValue))
@@ -45,12 +48,9 @@ class CurrenciesListViewController: UIViewController, CurrenciesListViewControll
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        layoutUI()
         CurrenciesListConfigurator.sharedInstance.configure(viewController: self)
-        activityIndicator.startAnimating()
-        fetchItems()
-        self.tableView.reloadData()
-        
+        self.layoutUI()
+        self.checkNetworkConnectivity()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,10 +58,31 @@ class CurrenciesListViewController: UIViewController, CurrenciesListViewControll
         retrievedDelegatedCurrencies()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
+    func checkNetworkConnectivity() {
+        if !NetworkManager.status {
+            self.fetchSavedData()
+            self.tableView.allowsSelection = false
+            addButton.isHidden = true
+        } else {
+            addButton.isHidden = false
+            self.fetchItems()
+            self.tableView.reloadData()
+        }
+    }
+    
+    func fetchSavedData() {
+        let request = CurrenciesList.Retrieve.Request()
+        output.retrieveSavedData(request)
+    }
+    
     func fetchItems() {
+        activityIndicator.startAnimating()
         let request = CurrenciesList.FetchItems.Request(defaultBase: defaultBase)
         output.fetchItems(request)
-        
     }
     
     func retrievedDelegatedCurrencies() {
@@ -77,6 +98,11 @@ class CurrenciesListViewController: UIViewController, CurrenciesListViewControll
         
     }
     
+    func displayRetrievedData(_ viewModel: CurrenciesList.FetchItems.ViewModel) {
+        displayedCurrencies = viewModel.displayedItems
+        self.tableView.reloadData()
+    }
+    
     func displayBaseCurrency(_ viewModel: CurrenciesList.FetchItems.ViewModel) {
         if viewModel.displayedItems.isEmpty { return }
         defaultBase = viewModel.displayedItems.first!
@@ -87,11 +113,6 @@ class CurrenciesListViewController: UIViewController, CurrenciesListViewControll
         displayedCurrencies = viewModel.displayedItems
     }
     
-    func displayDeleteResultSuccessful(_ viewModel: CurrenciesList.FetchItems.ViewModel) {
-        displayedCurrencies = viewModel.displayedItems
-        self.tableView.reloadData()
-    }
-    
     func displayConvertedValues(_ viewModel: CurrenciesList.FetchItems.ViewModel) {
         displayedCurrencies = viewModel.displayedItems
         activityIndicator.stopAnimating()
@@ -100,9 +121,6 @@ class CurrenciesListViewController: UIViewController, CurrenciesListViewControll
     
     func displayDeletedIndexPath(_ viewModel: CurrenciesList.DeleteIndexPath.ViewModel.Success) {
         tableView.beginUpdates()
-//        displayedCurrencies.forEach({ print($0.currencyName, terminator: ", ") })
-//        print("Deleted indexpath : \(viewModel.indexPath)")
-        print("index row ", viewModel.indexPath.row)
         displayedCurrencies.remove(at: viewModel.indexPath.row)
         tableView.deleteRows(at: [viewModel.indexPath], with: .fade)
         tableView.endUpdates()
@@ -189,24 +207,14 @@ extension CurrenciesListViewController : UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.section == 2 {
             cell.alpha = 0.5
-            //cell.center.x -= 50
             UIView.animate(withDuration: 0.2, animations: {
-                
                 cell.alpha = 1.0
-                //cell.center.x += 50
-                 
             }, completion: nil)
          }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
         if editingStyle == .delete {
-            
-//                let selected = displayedCurrencies[indexPath.row]
-//                let request = CurrenciesList.Delete.Request(deletedItem: selected)
-//                output.requestDeleteItem(request)
-                print("deleted item  " , indexPath)
                 let selected = CurrenciesList.DeleteIndexPath.Request(index: indexPath.row)
                 output.requestDeleteIndexPath(selected)
         }
@@ -258,33 +266,27 @@ extension CurrenciesListViewController : UITextFieldDelegate {
                 textField.text = String(defaultBase.value)
                 inputValues = String(defaultBase.value)
                 output.convert(request, with: inputValues)
-            } else {
-                
+            } else if validateContentsOf(value) {
                 inputValues = value
                 defaultBase.currencyValue = Double(value)!
                 output.convert(request, with: value)
-                
                 if !value.characters.map({ String($0) }).contains(".") {
                     inputValues = value + ".00"
                 }
-                
             }
-            
         }
-        
         textField.resignFirstResponder()
-        
     }
     
-//    func validateContentsOf(dollars text: String) -> Bool {
-//        
-//        let regex = "[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{1,2})?"
-//        let currencyTestOne = NSPredicate(format: "SELF MATCHES %@", regex)
-//        
-//        if currencyTestOne.evaluate(with: text) { return true }
-//        return false
-//        
-//    }
+    func validateContentsOf(_ text: String) -> Bool {
+        
+        let regex = "[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{1,2})?"
+        let currencyTestOne = NSPredicate(format: "SELF MATCHES %@", regex)
+        
+        if currencyTestOne.evaluate(with: text) { return true }
+        return false
+        
+    }
 
     
 }

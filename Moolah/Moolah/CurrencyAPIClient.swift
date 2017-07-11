@@ -19,7 +19,8 @@ struct CurrencyAPIClient {
         
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration)
-        let url = URL(string: "http://api.fixer.io/latest?base=\(base)")
+        let urlString = Secret.url + base
+        let url = URL(string: urlString)
         let task = session.dataTask(with: url!) { data, response, error in
             
             guard let data = data else { fatalError() }

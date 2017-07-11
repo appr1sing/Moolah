@@ -44,3 +44,41 @@ struct CurrencytoCountry {
                                 "EUR" : "European Union"]
     
 }
+
+struct Flags {
+    
+    static let countries = [ "Australia" : "🇦🇺"  ,
+                             "Bulgaria" : "🇧🇬",
+                             "Brazil" : "🇧🇷",
+                             "Canada" : "🇨🇦",
+                             "Switzerland" : "🇨🇭",
+                             "China" : "🇨🇳",
+                             "Czech Republic" : "🇨🇿",
+                             "Denmark" : "🇩🇰",
+                             "United Kingdom" : "🇬🇧",
+                             "Hong Kong" : "🇭🇰",
+                             "Croatia" : "🇭🇷",
+                             "Hungary" : "🇭🇺",
+                             "Indonesia" : "🇮🇩",
+                             "Israel" : "🇮🇱",
+                             "India" : "🇮🇳",
+                             "Japan" : "🇯🇵",
+                             "South Korea" : "🇰🇷",
+                             "Mexico" : "🇲🇽",
+                             "Malaysia" : "🇲🇾",
+                             "Norway" : "🇳🇴",
+                             "New Zealand" : "🇳🇿",
+                             "Philippines" : "🇵🇭",
+                             "Poland" : "🇵🇱",
+                             "Romania" : "🇷🇴",
+                             "Russia" : "🇷🇺",
+                             "Sweden" : "🇸🇪",
+                             "Singapore" : "🇸🇬",
+                             "United States" : "🇺🇸",
+                             "Thailand" : "🇹🇭",
+                             "Turkey" : "🇹🇷",
+                             "South Africa" : "🇿🇦",
+                             "European Union" : "🇪🇺" ]
+    
+}
+

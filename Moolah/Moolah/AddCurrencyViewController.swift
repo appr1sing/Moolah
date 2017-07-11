@@ -37,6 +37,8 @@ class AddCurrencyViewController: UIViewController, AddCurrencyViewControllerInpu
     let tableView = UITableView(frame: .zero)
     let proceedButton = ProceedButton(frame: .zero)
     
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         AddCurrencyConfigurator.sharedInstance.configure(viewController: self)
@@ -94,7 +96,8 @@ extension AddCurrencyViewController : UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 { return 1 }
-        return currencies.count
+        else if section == 1 { return currencies.count }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -114,14 +117,12 @@ extension AddCurrencyViewController : UITableViewDataSource, UITableViewDelegate
             let countryName = currencies[indexPath.row].countryName
             bgView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
             cell.countryName.text = countryName
-            
-//            if !displayedCurrencies.filter({ $0.countryName == countryName }).isEmpty {
-//                cell.tintColor = UIColor.white
-//                cell.accessoryType = .checkmark
-//            }
-            
             cell.selectedBackgroundView = bgView
             cell.selectionStyle = .default
+            if let flag = Flags.countries[countryName] {
+                cell.flag.text = flag
+            }
+            
             return cell
         default: return UITableViewCell()
         }
@@ -155,9 +156,9 @@ extension AddCurrencyViewController : UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
+        print(indexPath)
         let selected = currencies[indexPath.row]
-        if selectedCurrencies.contains(where: { $0.countryName == selected.countryName }) {
+        if selectedCurrencies.contains(where: { $0.countryName == selected.countryName }) && cell is AddCurrencyCell {
             cell.tintColor = UIColor.white
             cell.accessoryType = .checkmark
         }

@@ -36,7 +36,7 @@ class FooterViewCell: UITableViewCell {
     
     private func commonInit() {
         
-        backgroundColor = ColorConstant.blue
+        backgroundColor = .clear //ColorConstant.blue
         
         addSubview(label)
         label.topAnchor.constraint(equalTo: topAnchor).isActive = true

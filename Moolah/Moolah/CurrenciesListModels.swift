@@ -29,14 +29,7 @@ struct CurrenciesList {
             }
             
             var displayedItems: [DisplayedItem]
-            
-            struct Base {
-                var currencyName: String
-                var countryName: String {
-                    return CurrencytoCountry.countryCode[currencyName] ?? ""
-                }
-            }
-            
+    
         }
         
     }
@@ -101,11 +94,19 @@ struct CurrenciesList {
             struct Success {
                 var indexPath: IndexPath
             }
-            //var indexPath : Int
         }
         
     }
     
+    struct Retrieve {
+        
+        struct Request {}
+        
+        struct Response {
+            var currencies: [Currency]
+        }
+        
+    }
     
 }
 

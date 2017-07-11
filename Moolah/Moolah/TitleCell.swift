@@ -45,8 +45,8 @@ class TitleCell: UITableViewCell {
         label.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
         label.text = title
         
-        backgroundColor = ColorConstant.blue
-    
+        backgroundColor = .clear //ColorConstant.blue
+        
     }
     
     fileprivate func setupButton() {

@@ -13,6 +13,7 @@ class CurrencyStore: CurrencyStoreProtocol {
     
     private let apiClient = CurrencyAPIClient.shared
     private var currencies : [Currency] = []
+    private let savedDataClient = SavedDataClient.shared
     
     // MARK - Business logic
     
@@ -39,25 +40,28 @@ class CurrencyStore: CurrencyStoreProtocol {
 
     }
     
-    func fetchCurrency(currency: Currency, completionHandler: (Currency?, CurrencyStoreError?) -> Void) {
+    func retrieveSavedData(_ completionHandler: @escaping ([Currency], CurrencyStoreError?) -> Void) {
         
-    }
-   
-    func deleteCurrency(currency: Currency, completionHandler: (CurrencyStoreError?) -> Void) {
+        savedDataClient.retrieveData { json in
+            
+            guard let responseCurrencies = json["rates"] as? [String : Double] else { fatalError() }
+            self.currencies = []
+            
+            for (key, value) in responseCurrencies {
+                
+                let countryName = CurrencytoCountry.countryCode[key]!
+                let currency = Currency(countryName, currencyName: key, currencyValue: value)
+                self.currencies.append(currency)
+                
+            }
+            
+            OperationQueue.main.addOperation {
+                completionHandler(self.currencies.sorted(by: { $0.countryName < $1.countryName }), nil)
+            }
+            
+        }
         
     }
     
-    func updateCurrency(currency: Currency, completionHandler: (CurrencyStoreError?) -> Void) {
-        
-    }
-    
-    func createCurrency(currency: Currency, completionHandler: (CurrencyStoreError?) -> Void) {
-        
-    }
-    
-    
-    private func getObjectIndex(id: NSNumber?) -> Int?{
-        return 1
-    }
     
 }

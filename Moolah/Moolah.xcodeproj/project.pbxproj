@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38EB2646840D8180AECD30DC /* Pods_Moolah.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A05683900672E9266BBA946 /* Pods_Moolah.framework */; };
+		A71345AA1F11C91E00162F7D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71345A91F11C91E00162F7D /* NetworkManager.swift */; };
+		A71345AC1F11CA9C00162F7D /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71345AB1F11CA9C00162F7D /* Secrets.swift */; };
+		A71345AE1F11D19000162F7D /* FileCabinet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71345AD1F11D19000162F7D /* FileCabinet.swift */; };
 		A7444E271EEE29F200C99BB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7444E261EEE29F200C99BB0 /* AppDelegate.swift */; };
 		A7444E2C1EEE29F200C99BB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7444E2A1EEE29F200C99BB0 /* Main.storyboard */; };
 		A7444E2E1EEE29F200C99BB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7444E2D1EEE29F200C99BB0 /* Assets.xcassets */; };
@@ -28,6 +32,7 @@
 		A7B0F0FD1EF1512000C28B64 /* CurrencyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B0F0FC1EF1512000C28B64 /* CurrencyStore.swift */; };
 		A7B0F0FF1EF1582300C28B64 /* CurrencyToCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B0F0FE1EF1582300C28B64 /* CurrencyToCountry.swift */; };
 		A7B0F1011EF3069000C28B64 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B0F1001EF3069000C28B64 /* Extensions.swift */; };
+		A7D9AD691F12776F007BB711 /* SavedDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D9AD681F12776F007BB711 /* SavedDataStore.swift */; };
 		A7F77E921F05F5CC004D758D /* FooterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F77E911F05F5CC004D758D /* FooterViewCell.swift */; };
 		A7F77E981F07274B004D758D /* AddIconSK.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F77E971F07274B004D758D /* AddIconSK.swift */; };
 		A7F77E9A1F07276A004D758D /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F77E991F07276A004D758D /* AddButton.swift */; };
@@ -45,6 +50,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A02BBF7F77E1A50CE38EF35 /* Pods-Moolah.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moolah.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Moolah/Pods-Moolah.debug.xcconfig"; sourceTree = "<group>"; };
+		9A05683900672E9266BBA946 /* Pods_Moolah.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moolah.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A71345A91F11C91E00162F7D /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		A71345AB1F11CA9C00162F7D /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		A71345AD1F11D19000162F7D /* FileCabinet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCabinet.swift; sourceTree = "<group>"; };
 		A7444E231EEE29F200C99BB0 /* Moolah.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moolah.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7444E261EEE29F200C99BB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7444E2B1EEE29F200C99BB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -68,6 +78,7 @@
 		A7B0F0FC1EF1512000C28B64 /* CurrencyStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyStore.swift; sourceTree = "<group>"; };
 		A7B0F0FE1EF1582300C28B64 /* CurrencyToCountry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyToCountry.swift; sourceTree = "<group>"; };
 		A7B0F1001EF3069000C28B64 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		A7D9AD681F12776F007BB711 /* SavedDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedDataStore.swift; sourceTree = "<group>"; };
 		A7F77E911F05F5CC004D758D /* FooterViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FooterViewCell.swift; sourceTree = "<group>"; };
 		A7F77E971F07274B004D758D /* AddIconSK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddIconSK.swift; sourceTree = "<group>"; };
 		A7F77E991F07276A004D758D /* AddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
@@ -82,6 +93,7 @@
 		A7F77EAE1F08062A004D758D /* AddCurrencyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCurrencyCell.swift; sourceTree = "<group>"; };
 		A7F77EB01F0884F1004D758D /* ProceedIconSK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProceedIconSK.swift; sourceTree = "<group>"; };
 		A7F77EB21F088586004D758D /* ProceedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProceedButton.swift; sourceTree = "<group>"; };
+		D2542098BE89BF957E9C1726 /* Pods-Moolah.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moolah.release.xcconfig"; path = "Pods/Target Support Files/Pods-Moolah/Pods-Moolah.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,17 +101,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38EB2646840D8180AECD30DC /* Pods_Moolah.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7955AABA16471E1254B0CE96 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0A02BBF7F77E1A50CE38EF35 /* Pods-Moolah.debug.xcconfig */,
+				D2542098BE89BF957E9C1726 /* Pods-Moolah.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A71345A81F11C90400162F7D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A71345A91F11C91E00162F7D /* NetworkManager.swift */,
+				A71345AB1F11CA9C00162F7D /* Secrets.swift */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
 		A7444E1A1EEE29F200C99BB0 = {
 			isa = PBXGroup;
 			children = (
 				A7444E251EEE29F200C99BB0 /* Moolah */,
 				A7444E241EEE29F200C99BB0 /* Products */,
+				7955AABA16471E1254B0CE96 /* Pods */,
+				A75F1F6482AC934280AF1025 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,6 +147,8 @@
 		A7444E251EEE29F200C99BB0 /* Moolah */ = {
 			isa = PBXGroup;
 			children = (
+				A7D9AD671F127752007BB711 /* Saved Data */,
+				A71345A81F11C90400162F7D /* Network */,
 				A79D59BA1EF085F0006A03AE /* Store */,
 				A79D59B71EF06DB3006A03AE /* Worker */,
 				A79D59B41EF0156F006A03AE /* API */,
@@ -170,6 +205,14 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		A75F1F6482AC934280AF1025 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9A05683900672E9266BBA946 /* Pods_Moolah.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A79D59B31EF0151C006A03AE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +245,15 @@
 				A7B0F0FE1EF1582300C28B64 /* CurrencyToCountry.swift */,
 			);
 			name = Store;
+			sourceTree = "<group>";
+		};
+		A7D9AD671F127752007BB711 /* Saved Data */ = {
+			isa = PBXGroup;
+			children = (
+				A7D9AD681F12776F007BB711 /* SavedDataStore.swift */,
+				A71345AD1F11D19000162F7D /* FileCabinet.swift */,
+			);
+			name = "Saved Data";
 			sourceTree = "<group>";
 		};
 		A7F77E9B1F07EA11004D758D /* AddCurrency */ = {
@@ -257,9 +309,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A7444E351EEE29F200C99BB0 /* Build configuration list for PBXNativeTarget "Moolah" */;
 			buildPhases = (
+				F399577F4CD071E73F098852 /* [CP] Check Pods Manifest.lock */,
 				A7444E1F1EEE29F200C99BB0 /* Sources */,
 				A7444E201EEE29F200C99BB0 /* Frameworks */,
 				A7444E211EEE29F200C99BB0 /* Resources */,
+				09CE70838E9CCF09B7A3B0D6 /* [CP] Embed Pods Frameworks */,
+				823B7A937681808EA8AD7877 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -318,6 +373,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		09CE70838E9CCF09B7A3B0D6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Moolah/Pods-Moolah-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		823B7A937681808EA8AD7877 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Moolah/Pods-Moolah-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F399577F4CD071E73F098852 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A7444E1F1EEE29F200C99BB0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -328,6 +431,7 @@
 				A7444E4D1EEE4EF700C99BB0 /* Constants.swift in Sources */,
 				A7F77EB11F0884F1004D758D /* ProceedIconSK.swift in Sources */,
 				A7444E3B1EEE2BE700C99BB0 /* CurrenciesListViewController.swift in Sources */,
+				A71345AC1F11CA9C00162F7D /* Secrets.swift in Sources */,
 				A7F77EA91F07FCE1004D758D /* AddCurrencyWorker.swift in Sources */,
 				A7B0F0FF1EF1582300C28B64 /* CurrencyToCountry.swift in Sources */,
 				A7A2D7191EF7F765007AA14B /* BaseCurrencyCell.swift in Sources */,
@@ -338,9 +442,11 @@
 				A7F77EB31F088587004D758D /* ProceedButton.swift in Sources */,
 				A7444E3D1EEE2C0E00C99BB0 /* CurrenciesListConfigurator.swift in Sources */,
 				A7444E451EEE2C4400C99BB0 /* CurrenciesListRouter.swift in Sources */,
+				A71345AA1F11C91E00162F7D /* NetworkManager.swift in Sources */,
 				A79D59B91EF06DC9006A03AE /* CurrencyWorker.swift in Sources */,
 				A7F77EA11F07EEDE004D758D /* AddCurrencyInteractor.swift in Sources */,
 				A79D59B61EF0158D006A03AE /* CurrencyAPIClient.swift in Sources */,
+				A71345AE1F11D19000162F7D /* FileCabinet.swift in Sources */,
 				A7F77E9F1F07EED4004D758D /* AddCurrencyConfigurator.swift in Sources */,
 				A7F77E921F05F5CC004D758D /* FooterViewCell.swift in Sources */,
 				A7F77E9D1F07EA32004D758D /* AddCurrencyViewController.swift in Sources */,
@@ -353,6 +459,7 @@
 				A7F77EAB1F0803A5004D758D /* AddCurrencyVCExtension.swift in Sources */,
 				A7F77EAF1F08062A004D758D /* AddCurrencyCell.swift in Sources */,
 				A7F77E981F07274B004D758D /* AddIconSK.swift in Sources */,
+				A7D9AD691F12776F007BB711 /* SavedDataStore.swift in Sources */,
 				A7F77EA71F07EEFD004D758D /* AddCurrencyRouter.swift in Sources */,
 				A7444E3F1EEE2C1B00C99BB0 /* CurrenciesListInteractor.swift in Sources */,
 			);
@@ -475,12 +582,13 @@
 		};
 		A7444E361EEE29F200C99BB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0A02BBF7F77E1A50CE38EF35 /* Pods-Moolah.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CJ24M7DKLZ;
 				INFOPLIST_FILE = Moolah/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AppRising.Moolah1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AppRising.Moolah1.0.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -488,12 +596,13 @@
 		};
 		A7444E371EEE29F200C99BB0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2542098BE89BF957E9C1726 /* Pods-Moolah.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CJ24M7DKLZ;
 				INFOPLIST_FILE = Moolah/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AppRising.Moolah1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AppRising.Moolah1.0.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
