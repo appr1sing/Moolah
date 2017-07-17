@@ -18,6 +18,13 @@ class FooterViewCell: UITableViewCell {
         lbl.font = TextConstant.hvUS
         return lbl
     }()
+    
+    private let logo : LogoView = {
+        let icon = LogoView(frame: .zero)
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        icon.backgroundColor = ColorConstant.midnight
+        return icon
+    }()
 
     var button : AddButton! {
         didSet {
@@ -46,6 +53,12 @@ class FooterViewCell: UITableViewCell {
         label.numberOfLines = 0
         label.text = "All rates are based from the European Central Bank."
 
+        addSubview(logo)
+        logo.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+        logo.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.35).isActive = true
+        logo.heightAnchor.constraint(equalTo: label.heightAnchor).isActive = true
+        logo.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
     }
     
     fileprivate func setupButton() {

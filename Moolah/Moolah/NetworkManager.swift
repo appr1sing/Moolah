@@ -17,7 +17,7 @@ class NetworkManager {
     static let reachabilityMgr = NetworkReachabilityManager()
     
     static var status : Bool {
-        return (NetworkManager.reachabilityMgr?.isReachable)! ? true : false
+        return (NetworkManager.reachabilityMgr?.isReachable)! || (NetworkManager.reachabilityMgr?.isReachableOnEthernetOrWiFi)! ? true : false
     }
     
     private init() {}
