@@ -156,7 +156,6 @@ extension AddCurrencyViewController : UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        print(indexPath)
         let selected = currencies[indexPath.row]
         if selectedCurrencies.contains(where: { $0.countryName == selected.countryName }) && cell is AddCurrencyCell {
             cell.tintColor = UIColor.white

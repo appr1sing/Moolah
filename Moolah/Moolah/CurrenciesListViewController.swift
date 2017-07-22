@@ -37,8 +37,8 @@ class CurrenciesListViewController: UIViewController, CurrenciesListViewControll
             output.convert(request, with: String(defaultBase.currencyValue))
         }
     }
-    var inputValues : String = "1.00"
     
+    var inputValues : String = "1.00"
     let tableView = UITableView(frame: .zero)
     let activityIndicator = UIActivityIndicatorView()
     let addButton = AddButton()
@@ -263,11 +263,11 @@ extension CurrenciesListViewController : UITextFieldDelegate {
                 inputValues = String(defaultBase.value)
                 output.convert(request, with: inputValues)
             } else if validateContentsOf(value) {
-                inputValues = value
-                defaultBase.currencyValue = Double(value)!
-                output.convert(request, with: value)
+                inputValues = removeSpecialCharsFromString(text: value)
+                defaultBase.currencyValue = Double(inputValues)!
+                output.convert(request, with: inputValues)
                 if !value.characters.map({ String($0) }).contains(".") {
-                    inputValues = value + ".00"
+                    inputValues = inputValues + ".00"
                 }
             }
         }
@@ -275,7 +275,6 @@ extension CurrenciesListViewController : UITextFieldDelegate {
     }
     
     func validateContentsOf(_ text: String) -> Bool {
-        
         let regex = "[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{1,2})?"
         let currencyTestOne = NSPredicate(format: "SELF MATCHES %@", regex)
         
@@ -283,7 +282,11 @@ extension CurrenciesListViewController : UITextFieldDelegate {
         return false
         
     }
-
+    
+    func removeSpecialCharsFromString(text: String) -> String {
+        let okayChars : Set<Character> = Set("0123456789".characters)
+        return String(text.characters.filter { okayChars.contains($0) })
+    }
     
 }
 
