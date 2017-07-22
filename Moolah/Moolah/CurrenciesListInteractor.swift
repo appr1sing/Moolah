@@ -85,7 +85,7 @@ class CurrenciesListInteractor: CurrenciesListInteractorInput {
     }
     
     func convert(_ request: CurrenciesList.FetchItems.Request, with value: String) {
-        let defaults = NetworkManager.status ? self.presentDefaultCurrencies(currencies) : currencies
+        let defaults = self.presentDefaultCurrencies(currencies)
         let response = CurrenciesList.FetchItems.Response(currencies: defaults)
         output.presentConvertedValues(response, with: value)
     }

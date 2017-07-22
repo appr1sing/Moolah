@@ -19,9 +19,7 @@ class CurrenciesListRouter : CurrenciesListRouterInput, AddCurrencyViewControlle
     
     // MARK: Navigation
     
-    func navigateToSomewhere(){
-        
-    }
+    func navigateToSomewhere() {}
     
     // MARK: Communication
     

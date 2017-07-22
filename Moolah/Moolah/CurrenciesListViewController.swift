@@ -10,7 +10,6 @@ import UIKit
 
 protocol CurrenciesListViewControllerInput {
     func displayFetchedItems(_ viewModel: CurrenciesList.FetchItems.ViewModel)
-    //func displayDeleteResultSuccessful(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayConvertedValues(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayDelegatedCurrencies(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayDeletedIndexPath(_ viewModel: CurrenciesList.DeleteIndexPath.ViewModel.Success)
@@ -65,10 +64,7 @@ class CurrenciesListViewController: UIViewController, CurrenciesListViewControll
     func checkNetworkConnectivity() {
         if !NetworkManager.status {
             self.fetchSavedData()
-            self.tableView.allowsSelection = false
-            addButton.isHidden = true
         } else {
-            addButton.isHidden = false
             self.fetchItems()
             self.tableView.reloadData()
         }
