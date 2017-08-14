@@ -12,16 +12,17 @@ protocol CurrenciesListViewControllerInput {
     func displayFetchedItems(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayConvertedValues(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayDelegatedCurrencies(_ viewModel: CurrenciesList.FetchItems.ViewModel)
-    func displayDeletedIndexPath(_ viewModel: CurrenciesList.DeleteIndexPath.ViewModel.Success)
     func displayRetrievedData(_ viewModel: CurrenciesList.FetchItems.ViewModel)
+    func displayDeletedItem(_ viewModel: CurrenciesList.FetchItems.ViewModel)
+
 }
 
 protocol CurrenciesListViewControllerOutput {
     func fetchItems(_ request: CurrenciesList.FetchItems.Request)
     func convert(_ request: CurrenciesList.FetchItems.Request, with input: String)
     func fetchDelegatedCurrencies(_ request: CurrenciesList.Update.Request)
-    func requestDeleteIndexPath(_ request: CurrenciesList.DeleteIndexPath.Request)
     func retrieveSavedData(_ request: CurrenciesList.Retrieve.Request)
+    func requestDeleteItem(_ request: CurrenciesList.Delete.Request)
 }
 
 class CurrenciesListViewController: UIViewController, CurrenciesListViewControllerInput {
@@ -55,6 +56,7 @@ class CurrenciesListViewController: UIViewController, CurrenciesListViewControll
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         retrievedDelegatedCurrencies()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -64,6 +66,7 @@ class CurrenciesListViewController: UIViewController, CurrenciesListViewControll
     func checkNetworkConnectivity() {
         if !NetworkManager.status {
             self.fetchSavedData()
+            self.tableView.allowsSelection = false
         } else {
             self.fetchItems()
             self.tableView.reloadData()
@@ -114,14 +117,12 @@ class CurrenciesListViewController: UIViewController, CurrenciesListViewControll
         activityIndicator.stopAnimating()
         self.tableView.reloadData()
     }
-    
-    func displayDeletedIndexPath(_ viewModel: CurrenciesList.DeleteIndexPath.ViewModel.Success) {
-        tableView.beginUpdates()
-        displayedCurrencies.remove(at: viewModel.indexPath.row)
-        tableView.deleteRows(at: [viewModel.indexPath], with: .fade)
-        tableView.endUpdates()
-    }
 
+    func displayDeletedItem(_ viewModel: CurrenciesList.FetchItems.ViewModel) {
+        displayedCurrencies = viewModel.displayedItems
+        self.tableView.reloadData()
+    }
+    
 }
 
 extension CurrenciesListViewController : UITableViewDelegate, UITableViewDataSource {
@@ -211,8 +212,8 @@ extension CurrenciesListViewController : UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-                let selected = CurrenciesList.DeleteIndexPath.Request(index: indexPath.row)
-                output.requestDeleteIndexPath(selected)
+            let selected = CurrenciesList.Delete.Request(deletedItem: displayedCurrencies[indexPath.row])
+            output.requestDeleteItem(selected)
         }
     }
 

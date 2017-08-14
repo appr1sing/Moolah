@@ -12,8 +12,8 @@ protocol CurrenciesListInteractorInput {
     func fetchItems(_ request: CurrenciesList.FetchItems.Request)
     func convert(_ request: CurrenciesList.FetchItems.Request, with value: String)
     func fetchDelegatedCurrencies(_ request: CurrenciesList.Update.Request)
-    func requestDeleteIndexPath(_ request: CurrenciesList.DeleteIndexPath.Request)
     func retrieveSavedData(_ request: CurrenciesList.Retrieve.Request)
+    func requestDeleteItem(_ request: CurrenciesList.Delete.Request)
 }
 
 protocol CurrenciesListInteractorOutput {
@@ -21,8 +21,8 @@ protocol CurrenciesListInteractorOutput {
     func presentBaseCurrency(_ currency: CurrenciesList.FetchItems.Response)
     func presentConvertedValues(_ response: CurrenciesList.FetchItems.Response, with value: String)
     func presentDelegatedCurrencies(_ response: CurrenciesList.Update.Response)
-    func presentDeleteIndexPath(_ response: CurrenciesList.DeleteIndexPath.Response)
     func presentRetrievedData(_ response: CurrenciesList.Retrieve.Response)
+    func presentDeletedItem(_ response: CurrenciesList.FetchItems.Response)
 }
 
 
@@ -31,10 +31,14 @@ class CurrenciesListInteractor: CurrenciesListInteractorInput {
     var output : CurrenciesListInteractorOutput!
     var worker = CurrencyWorker(store: CurrencyStore())
     var currencies : [Currency] = [] // All downloaded currencies stored here
-    var defaultCurrencies = ["CNY", "EUR", "GBP", "JPY", "USD"] {
+    private var _defaultCurrencies = ["CNY", "EUR", "GBP", "JPY", "USD"] {
         didSet {
             FileCabinet.shared.saveSelectedCurrencies(defaultCurrencies)
         }
+    }
+    
+    var defaultCurrencies : [String] {
+        return _defaultCurrencies.sorted(by: < )
     }
     
     func fetchItems(_ request: CurrenciesList.FetchItems.Request) {
@@ -47,12 +51,15 @@ class CurrenciesListInteractor: CurrenciesListInteractorInput {
             FileCabinet.shared.saveCurrencies(results)
            
             let latestSelectedCurrencies = FileCabinet.shared.retrievedSelectedCurrencies()
-            if !latestSelectedCurrencies.isEmpty { self.defaultCurrencies = latestSelectedCurrencies }
+            if !latestSelectedCurrencies.isEmpty { self._defaultCurrencies = latestSelectedCurrencies }
             
             let defaults = self.presentDefaultCurrencies(results)
             let convertRequest = self.convertViewModelToCurrencyType(request.defaultBase)
             let response = CurrenciesList.FetchItems.Response(currencies: defaults)
             let baseResponse = CurrenciesList.FetchItems.Response(currencies: [convertRequest])
+            
+            print("FETCHED DATA: ", self.defaultCurrencies)
+            
             self.currencies = results
             self.output.presentFetchedItems(response)
             self.output.presentBaseCurrency(baseResponse)
@@ -61,7 +68,7 @@ class CurrenciesListInteractor: CurrenciesListInteractorInput {
     
     func retrieveSavedData(_ request: CurrenciesList.Retrieve.Request) {
         worker.retrieveSavedData { [unowned self] (results) in
-            self.defaultCurrencies = FileCabinet.shared.retrievedSelectedCurrencies()
+            self._defaultCurrencies = FileCabinet.shared.retrievedSelectedCurrencies()
             let defaults = self.presentDefaultCurrencies(results)
             let response = CurrenciesList.Retrieve.Response(currencies: defaults)
             self.currencies = results
@@ -71,17 +78,11 @@ class CurrenciesListInteractor: CurrenciesListInteractorInput {
     
     func fetchDelegatedCurrencies(_ request: CurrenciesList.Update.Request) {
         let results = request.currencies.filter({ $0.countryName != request.base.countryName })
-        if !results.isEmpty { defaultCurrencies = results.map({ $0.currencyName }) + [request.base.currencyName] }
+        if !results.isEmpty { _defaultCurrencies = results.map({ $0.currencyName }) + [request.base.currencyName] }
         let currencies = results.map({ convertViewModelToCurrencyType($0) })
         let response = CurrenciesList.Update.Response(currencies: currencies)
         output.presentDelegatedCurrencies(response)
         
-    }
-    
-    func requestDeleteIndexPath(_ request: CurrenciesList.DeleteIndexPath.Request) {
-        defaultCurrencies.remove(at: request.index)
-        let response = CurrenciesList.DeleteIndexPath.Response(index: request.index)
-        output.presentDeleteIndexPath(response)
     }
     
     func convert(_ request: CurrenciesList.FetchItems.Request, with value: String) {
@@ -94,11 +95,20 @@ class CurrenciesListInteractor: CurrenciesListInteractorInput {
         
         var newResults: [Currency] = []
         for currency in results {
-            if defaultCurrencies.contains(currency.currencyName) {
+            if _defaultCurrencies.contains(currency.currencyName) {
                 newResults.append(currency)
             }
         }
         return newResults
+    }
+    
+    func requestDeleteItem(_ request: CurrenciesList.Delete.Request) {
+        
+        _defaultCurrencies = defaultCurrencies.filter({ $0 != request.deletedItem.currencyName })
+        let defaults = self.presentDefaultCurrencies(currencies)
+        let response = CurrenciesList.FetchItems.Response(currencies: defaults)
+        output.presentDeletedItem(response)
+        
     }
     
     func convertViewModelToCurrencyType(_ input: CurrenciesList.FetchItems.ViewModel.DisplayedItem) -> Currency {

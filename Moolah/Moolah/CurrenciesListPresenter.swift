@@ -13,8 +13,8 @@ protocol CurrenciesListPresenterInput{
     func presentBaseCurrency(_ response: CurrenciesList.FetchItems.Response)
     func presentConvertedValues(_ response: CurrenciesList.FetchItems.Response, with value: String)
     func presentDelegatedCurrencies(_ response: CurrenciesList.Update.Response)
-    func presentDeleteIndexPath(_ response: CurrenciesList.DeleteIndexPath.Response)
     func presentRetrievedData(_ response: CurrenciesList.Retrieve.Response)
+    func presentDeletedItem(_ response: CurrenciesList.FetchItems.Response)
 }
 
 protocol CurrenciesListPresenterOutput: class{
@@ -22,8 +22,8 @@ protocol CurrenciesListPresenterOutput: class{
     func displayBaseCurrency(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayConvertedValues(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayDelegatedCurrencies(_ viewModel: CurrenciesList.FetchItems.ViewModel)
-    func displayDeletedIndexPath(_ viewModel: CurrenciesList.DeleteIndexPath.ViewModel.Success)
     func displayRetrievedData(_ viewModel: CurrenciesList.FetchItems.ViewModel)
+    func displayDeletedItem(_ viewModel: CurrenciesList.FetchItems.ViewModel)
 }
 
 class CurrenciesListPresenter: CurrenciesListPresenterInput {
@@ -51,15 +51,14 @@ class CurrenciesListPresenter: CurrenciesListPresenterInput {
         output.displayConvertedValues(viewModel)
     }
     
-    func presentDeleteIndexPath(_ response: CurrenciesList.DeleteIndexPath.Response) {
-        let indexPath = IndexPath(row: response.index, section: 2)
-        let viewModel = CurrenciesList.DeleteIndexPath.ViewModel.Success(indexPath: indexPath)
-        output.displayDeletedIndexPath(viewModel)
-    }
-    
     func presentRetrievedData(_ response: CurrenciesList.Retrieve.Response) {
         let viewModel = CurrenciesList.FetchItems.ViewModel(displayedItems: response.currencies.map({ $0.toDisplayedItem() }))
         output.displayRetrievedData(viewModel)
+    }
+    
+    func presentDeletedItem(_ response: CurrenciesList.FetchItems.Response) {
+        let viewModel = CurrenciesList.FetchItems.ViewModel(displayedItems: response.currencies.map({ $0.toDisplayedItem() }))
+        output.displayDeletedItem(viewModel)
     }
     
 }
