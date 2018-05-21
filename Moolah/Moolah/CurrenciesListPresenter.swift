@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CurrenciesListPresenterInput{
+protocol CurrenciesListPresenterInput {
     func presentFetchedItems(_ response: CurrenciesList.FetchItems.Response)
     func presentBaseCurrency(_ response: CurrenciesList.FetchItems.Response)
     func presentConvertedValues(_ response: CurrenciesList.FetchItems.Response, with value: String)
@@ -17,7 +17,7 @@ protocol CurrenciesListPresenterInput{
     func presentDeletedItem(_ response: CurrenciesList.FetchItems.Response)
 }
 
-protocol CurrenciesListPresenterOutput: class{
+protocol CurrenciesListPresenterOutput: class {
     func displayFetchedItems(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayBaseCurrency(_ viewModel: CurrenciesList.FetchItems.ViewModel)
     func displayConvertedValues(_ viewModel: CurrenciesList.FetchItems.ViewModel)
@@ -28,7 +28,7 @@ protocol CurrenciesListPresenterOutput: class{
 
 class CurrenciesListPresenter: CurrenciesListPresenterInput {
     
-    weak var output : CurrenciesListPresenterOutput! 
+    weak var output : CurrenciesListPresenterOutput!
     
     func presentFetchedItems(_ response: CurrenciesList.FetchItems.Response) {
         let viewModel = CurrenciesList.FetchItems.ViewModel(displayedItems: response.currencies.map({ $0.toDisplayedItem() }))

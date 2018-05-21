@@ -24,6 +24,7 @@ struct CurrencytoCountry {
                                 "HUF" : "Hungary",
                                 "IDR" : "Indonesia",
                                 "ILS" : "Israel",
+                                "ISK" : "Iceland",
                                 "INR" : "India",
                                 "JPY" : "Japan",
                                 "KRW" : "South Korea",
